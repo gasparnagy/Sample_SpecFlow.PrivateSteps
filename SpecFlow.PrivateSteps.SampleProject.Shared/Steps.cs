@@ -1,4 +1,5 @@
 ﻿using System;
+using PrivateSteps.SpecFlowPlugin;
 using TechTalk.SpecFlow;
 
 namespace SpecFlow.PrivateSteps.SampleProject.Shared
@@ -6,7 +7,7 @@ namespace SpecFlow.PrivateSteps.SampleProject.Shared
     [Binding]
     public class Steps
     {
-        [When(@"I have a private step")]
+        [When(@"I have a private step"), PrivateStep]
         public void WhenIHaveAPrivateStep()
         {
             Console.WriteLine("Private step");

@@ -78,6 +78,10 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PrivateSteps.SpecFlowPlugin\PrivateSteps.SpecFlowPlugin.csproj">
+      <Project>{fe0a347c-abef-4b76-a6d5-36e0ba43d510}</Project>
+      <Name>PrivateSteps.SpecFlowPlugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SpecFlow.PrivateSteps.SampleProject.Shared\SpecFlow.PrivateSteps.SampleProject.Shared.csproj">
       <Project>{c516e8b4-4349-4ae6-b072-a4882ce0cf63}</Project>
       <Name>SpecFlow.PrivateSteps.SampleProject.Shared</Name>
