@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C516E8B4-4349-4AE6-B072-A4882CE0CF63}</ProjectGuid>
+    <ProjectGuid>{28892C14-34FA-4C30-AFA5-9A6FA459DF76}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SpecFlow.PrivateSteps.SampleProject.Shared</RootNamespace>
-    <AssemblyName>SpecFlow.PrivateSteps.SampleProject.Shared</AssemblyName>
+    <RootNamespace>SpecFlow.PrivateSteps.SampleProject.Consumer</RootNamespace>
+    <AssemblyName>SpecFlow.PrivateSteps.SampleProject.Consumer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -46,7 +46,6 @@
     </Reference>
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.abstractions.2.0.1\lib\net35\xunit.abstractions.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="xunit.assert, Version=2.2.0.3545, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.assert.2.2.0\lib\netstandard1.1\xunit.assert.dll</HintPath>
@@ -59,24 +58,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PrivateAndPublicSteps.feature.cs">
+    <Compile Include="ConsumingSteps.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PrivateAndPublicSteps.feature</DependentUpon>
+      <DependentUpon>ConsumingSteps.feature</DependentUpon>
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
-    <None Include="PrivateAndPublicSteps.feature">
+    <None Include="ConsumingSteps.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>PrivateAndPublicSteps.feature.cs</LastGenOutput>
+      <LastGenOutput>ConsumingSteps.feature.cs</LastGenOutput>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpecFlow.PrivateSteps.SampleProject.Shared\SpecFlow.PrivateSteps.SampleProject.Shared.csproj">
+      <Project>{c516e8b4-4349-4ae6-b072-a4882ce0cf63}</Project>
+      <Name>SpecFlow.PrivateSteps.SampleProject.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
