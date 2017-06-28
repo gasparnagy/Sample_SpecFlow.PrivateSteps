@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
+using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Bindings.Reflection;
 using TechTalk.SpecFlow.Infrastructure;
@@ -10,8 +12,19 @@ namespace PrivateSteps.SpecFlowPlugin
 {
     public class PrivateScopedMatchService : StepDefinitionMatchService
     {
-        public PrivateScopedMatchService(IBindingRegistry bindingRegistry, IStepArgumentTypeConverter stepArgumentTypeConverter) : base(bindingRegistry, stepArgumentTypeConverter)
+        private readonly Assembly testAssembly;
+
+        public PrivateScopedMatchService(IBindingRegistry bindingRegistry, IStepArgumentTypeConverter stepArgumentTypeConverter, ITestRunnerManager testRunnerManager) : base(bindingRegistry, stepArgumentTypeConverter)
         {
+            testAssembly = GetTestAssembly(testRunnerManager);
+        }
+
+        private Assembly GetTestAssembly(ITestRunnerManager testRunnerManager)
+        {
+            //TODO: replace this with testRunnerManager.TestAssembly when upgrading to v2.2
+            return (Assembly)testRunnerManager.GetType()
+                .GetField("testAssembly", BindingFlags.Instance | BindingFlags.NonPublic)
+                .GetValue(testRunnerManager);
         }
 
         protected override IEnumerable<BindingMatch> GetCandidatingBindingsForBestMatch(StepInstance stepInstance, CultureInfo bindingCulture)
@@ -27,8 +40,8 @@ namespace PrivateSteps.SpecFlowPlugin
                 return true; // handle special cases
 
             var hasPrivateAttr = Attribute.GetCustomAttribute(runtimeMethod.MethodInfo, typeof(PrivateStepAttribute)) != null;
-
-            return !hasPrivateAttr;
+            
+            return !hasPrivateAttr || runtimeMethod.MethodInfo.DeclaringType.Assembly == testAssembly;
         }
     }
 }
