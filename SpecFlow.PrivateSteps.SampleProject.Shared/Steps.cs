@@ -7,8 +7,8 @@ namespace SpecFlow.PrivateSteps.SampleProject.Shared
     [Binding]
     public class Steps
     {
-        [When(@"I have a private step"), PrivateStep]
-        public void WhenIHaveAPrivateStep()
+        [When(@"I have a private step")]
+        internal void WhenIHaveAPrivateStep()
         {
             Console.WriteLine("Private step");
         }

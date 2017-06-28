@@ -39,9 +39,9 @@ namespace PrivateSteps.SpecFlowPlugin
             if (runtimeMethod == null)
                 return true; // handle special cases
 
-            var hasPrivateAttr = Attribute.GetCustomAttribute(runtimeMethod.MethodInfo, typeof(PrivateStepAttribute)) != null;
+            var isPublic = runtimeMethod.MethodInfo.IsPublic;
             
-            return !hasPrivateAttr || runtimeMethod.MethodInfo.DeclaringType.Assembly == testAssembly;
+            return isPublic || runtimeMethod.MethodInfo.DeclaringType.Assembly == testAssembly;
         }
     }
 }
